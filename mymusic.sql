@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 23, 2019 at 10:32 PM
+-- Generation Time: Mar 23, 2019 at 11:23 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.3
 
@@ -21,6 +21,69 @@ SET time_zone = "+00:00";
 --
 -- Database: `mymusic`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `playlists`
+--
+
+CREATE TABLE `playlists` (
+  `playlistid` int(11) NOT NULL,
+  `name` varchar(20) NOT NULL,
+  `globalflag` int(1) NOT NULL,
+  `userid` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `playlists`
+--
+
+INSERT INTO `playlists` (`playlistid`, `name`, `globalflag`, `userid`) VALUES
+(1, 'All Songs', 1, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `playlistsongs`
+--
+
+CREATE TABLE `playlistsongs` (
+  `playlistid` int(11) NOT NULL,
+  `songid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `playlistsongs`
+--
+
+INSERT INTO `playlistsongs` (`playlistid`, `songid`) VALUES
+(1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `songs`
+--
+
+CREATE TABLE `songs` (
+  `songid` int(11) NOT NULL,
+  `title` varchar(30) NOT NULL,
+  `album` varchar(30) NOT NULL,
+  `artist` varchar(30) NOT NULL,
+  `genre` varchar(30) NOT NULL,
+  `length` char(5) NOT NULL,
+  `songfilepath` varchar(100) NOT NULL,
+  `albumartfilepath` varchar(100) NOT NULL,
+  `premiumflag` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `songs`
+--
+
+INSERT INTO `songs` (`songid`, `title`, `album`, `artist`, `genre`, `length`, `songfilepath`, `albumartfilepath`, `premiumflag`) VALUES
+(1, 'Without Me (Clean)', 'Without Me (Single)', 'Halsey', 'Alternative Rock', '03:21', '/MusicFiles/halsey_without_me.png', '/AlbumArt/halsey_without_me.mp3', 0);
 
 -- --------------------------------------------------------
 
@@ -49,6 +112,26 @@ INSERT INTO `users` (`userid`, `username`, `password`, `userfnam`, `userlname`, 
 --
 
 --
+-- Indexes for table `playlists`
+--
+ALTER TABLE `playlists`
+  ADD PRIMARY KEY (`playlistid`),
+  ADD KEY `userid` (`userid`);
+
+--
+-- Indexes for table `playlistsongs`
+--
+ALTER TABLE `playlistsongs`
+  ADD KEY `playlistid` (`playlistid`),
+  ADD KEY `songid` (`songid`);
+
+--
+-- Indexes for table `songs`
+--
+ALTER TABLE `songs`
+  ADD PRIMARY KEY (`songid`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -59,10 +142,39 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `playlists`
+--
+ALTER TABLE `playlists`
+  MODIFY `playlistid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `songs`
+--
+ALTER TABLE `songs`
+  MODIFY `songid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `playlists`
+--
+ALTER TABLE `playlists`
+  ADD CONSTRAINT `FK` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`);
+
+--
+-- Constraints for table `playlistsongs`
+--
+ALTER TABLE `playlistsongs`
+  ADD CONSTRAINT `PK1` FOREIGN KEY (`playlistid`) REFERENCES `playlists` (`playlistid`),
+  ADD CONSTRAINT `PK2` FOREIGN KEY (`songid`) REFERENCES `songs` (`songid`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
