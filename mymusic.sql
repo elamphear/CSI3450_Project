@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 23, 2019 at 11:23 PM
+-- Generation Time: Mar 26, 2019 at 02:14 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.3
 
@@ -40,7 +40,9 @@ CREATE TABLE `playlists` (
 --
 
 INSERT INTO `playlists` (`playlistid`, `name`, `globalflag`, `userid`) VALUES
-(1, 'All Songs', 1, NULL);
+(1, 'All Songs', 1, NULL),
+(2, 'Alternative Rock', 1, NULL),
+(3, 'Erics Favorites', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -58,7 +60,10 @@ CREATE TABLE `playlistsongs` (
 --
 
 INSERT INTO `playlistsongs` (`playlistid`, `songid`) VALUES
-(1, 1);
+(1, 1),
+(2, 1),
+(3, 1),
+(3, 2);
 
 -- --------------------------------------------------------
 
@@ -83,7 +88,8 @@ CREATE TABLE `songs` (
 --
 
 INSERT INTO `songs` (`songid`, `title`, `album`, `artist`, `genre`, `length`, `songfilepath`, `albumartfilepath`, `premiumflag`) VALUES
-(1, 'Without Me (Clean)', 'Without Me (Single)', 'Halsey', 'Alternative Rock', '03:21', '/MusicFiles/halsey_without_me.png', '/AlbumArt/halsey_without_me.mp3', 0);
+(1, 'Without Me (Clean)', 'Without Me (Single)', 'Halsey', 'Alternative Rock', '03:21', 'MusicFiles/halsey_without_me.mp3', 'AlbumArt/halsey_without_me.png', 0),
+(2, 'Under Pressure', 'Nothing Has Changed', 'David Bowie', 'Rock', '04:04', 'MusicFiles/bow_under_pressure.mp3', 'AlbumArt/bowie_nothing.png', 1);
 
 -- --------------------------------------------------------
 
@@ -95,7 +101,7 @@ CREATE TABLE `users` (
   `userid` int(11) NOT NULL,
   `username` varchar(20) NOT NULL,
   `password` varchar(20) NOT NULL,
-  `userfnam` varchar(20) NOT NULL,
+  `userfname` varchar(20) NOT NULL,
   `userlname` varchar(20) NOT NULL,
   `subscriptionstatus` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -104,8 +110,9 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`userid`, `username`, `password`, `userfnam`, `userlname`, `subscriptionstatus`) VALUES
-(1, 'esl', 'esl', 'Eric', 'Lamphear', 1);
+INSERT INTO `users` (`userid`, `username`, `password`, `userfname`, `userlname`, `subscriptionstatus`) VALUES
+(1, 'esl', 'esl', 'Eric', 'Lamphear', 1),
+(2, 'admesl', 'admesl', 'Admin', 'Eric', 1);
 
 --
 -- Indexes for dumped tables
@@ -145,19 +152,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `playlists`
 --
 ALTER TABLE `playlists`
-  MODIFY `playlistid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `playlistid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `songs`
 --
 ALTER TABLE `songs`
-  MODIFY `songid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `songid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
