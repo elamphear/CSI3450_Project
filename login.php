@@ -4,8 +4,8 @@
    
    $error = "\t";
    
-   if($_SERVER["REQUEST_METHOD"] == "POST") {
-      // username and password sent from form 
+   if($_SERVER["REQUEST_METHOD"] == "POST") 
+   {
       
       $myusername = mysqli_real_escape_string($db,$_POST['username']);
       $mypassword = mysqli_real_escape_string($db,$_POST['password']); 
@@ -13,12 +13,9 @@
       $sql = "SELECT userid FROM users WHERE username = '$myusername' and password = '$mypassword'";
       $result = mysqli_query($db,$sql);
       $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-      //$active = $row['active'];
       
       $count = mysqli_num_rows($result);
-      
-      // If result matched $myusername and $mypassword, table row must be 1 row
-		
+      		
       if($count == 1) {
          //session_register("myusername");
          $_SESSION['login_user'] = $myusername;
@@ -47,6 +44,13 @@
          .box {
             border:#666666 solid 1px;
          }
+      .auto-style1 {
+		  text-align: center;
+	  }
+	  
+	  a { color: inherit; } 
+	  a:link { text-decoration: none;}
+
       </style>
       
    </head>
@@ -55,18 +59,20 @@
 	
       <div align = "center">
  
-		<img alt="myMusic" src="header.jpg" width="50%" height="50%">
-		<br><br>
+		<img alt="myMusic" src="header.jpg" width="600px" height="300px">
+		<br>
 
-        <div style = "width:300px; border: solid 1px #333333; " align = "left">
-            <div style = "background-color:#333333; color:#FFFFFF; padding:3px;"><b>myMusic Login</b></div>
+        <div style = "width:600px; border: solid 1px #333333; " align = "left">
+            <div style = "background-color:#333333; color:#FFFFFF; padding:3px;" align="center"><b>myMusic Login</b></div>
 				
             <div style = "margin:30px">
                
                <form action = "" method = "post">
+                   <div class="auto-style1">
                   <label>UserName  :</label><input type = "text" name = "username" class = "box"/><br /><br />
                   <label>Password  :</label><input type = "password" name = "password" class = "box" /><br/><br />
-                  <input type = "submit" value = " Submit "/><br />
+                  <input type = "submit" value = " Login "/><br />
+               	</div>
                </form>
                
                <div style = "font-size:11px; color:#cc0000; margin-top:10px"><?php echo $error; ?></div>
