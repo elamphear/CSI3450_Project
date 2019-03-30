@@ -1,12 +1,13 @@
 <?php
    include('session.php');
 
-	$result = mysqli_query($db, "SELECT userid, userfname, userlname, username FROM users WHERE username = '$login_session' ");
+	$result = mysqli_query($db, "SELECT userid, userfname, userlname, username,adminflag FROM users WHERE username = '$login_session' ");
     $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
 
 	$userid = $row['userid'];
     $userfname = $row['userfname'];
     $userlname = $row['userlname'];
+    $adminflag = $row['adminflag'];
 
 	//TODO: 
 	//	User page - add playlist
@@ -60,7 +61,7 @@
 	
       <div align = "center">
  
-		<img alt="myMusic" src="header.jpg" width="600px" height="300px">
+		<img alt="myMusic" src="header.jpg" width="600px" height="280px">
 		<br>
 
         <div style = "width:600px; border: solid 1px #333333; " align = "left">
@@ -70,6 +71,18 @@
 			myMusic -- Welcome <?php echo $userfname; ?> -- <a href = "logout.php">Sign Out</a>	
 		</b>
 		</div>
+
+		<?php
+			if($adminflag == '1')
+			{
+				echo "<div style = 'width:594x;background-color:#2F4F4F; color:#FFFFFF; padding:3px;' align='center'>";
+				echo "<b>";		
+					echo "Admin Options -- <a href = 'song_manage.php'>Add/Remove Song from DB</a> -- <a href = 'user_manage.php'>Add/Remove User from DB</a>";
+				echo "</b>";
+				echo "<br></div>";
+			}
+		?>
+
 
 		<div style = "margin:30px">
 

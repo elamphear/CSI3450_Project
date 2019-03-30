@@ -4,16 +4,18 @@
 	$id = $_GET['id'];
 	$song = $_GET['song'];
 
-	$result = mysqli_query($db, "SELECT userfname, userlname, username FROM users WHERE username = '$login_session' ");
+	$result = mysqli_query($db, "SELECT userfname, userlname, username, adminflag FROM users WHERE username = '$login_session' ");
     $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
 
     $userfname = $row['userfname'];
     $userlname = $row['userlname'];
+    $adminflag = $row['adminflag'];
 
-	$result = mysqli_query($db, "SELECT name from playlists where playlistid = $id");
+	$result = mysqli_query($db, "SELECT name, globalflag from playlists where playlistid = $id");
 	$row = mysqli_fetch_array($result,MYSQLI_ASSOC);
 
 	$playlistname = $row['name'];
+	$globalflag = $row['globalflag'];
 
 ?>
 
@@ -52,7 +54,7 @@
 	
       <div align = "center">
  
-		<img alt="myMusic" src="header.jpg" width="600px" height="300px">
+		<img alt="myMusic" src="header.jpg" width="600px" height="280px">
 		<br>
 
         <div style = "width:600px; border: solid 1px #333333; " align = "left">
@@ -62,6 +64,17 @@
 			myMusic -- <a href = "welcome.php">Home Page</a> -- <a href = "logout.php">Sign Out</a>	
 		</b>
 		</div>
+
+		<?php
+			if($adminflag == '1')
+			{
+				echo "<div style = 'width:594x;background-color:#2F4F4F; color:#FFFFFF; padding:3px;' align='center'>";
+				echo "<b>";		
+					echo "Admin Options -- <a href = 'song_manage.php'>Add/Remove Song from DB</a> -- <a href = 'user_manage.php'>Add/Remove User from DB</a>";
+				echo "</b>";
+				echo "<br></div>";
+			}
+		?>
 
 		<div style = "margin:30px">
 
@@ -82,8 +95,13 @@
 			$songid = $row['songid'];
 			$title = $row['title'];
 			$artist = $row['artist'];
-			echo "<tr><td><font size='2'><a href = 'playlist.php?id=$id&song=$songid'>$title</a></font></td><td><font size='2'>$artist</font></td></tr>";			
+			echo "<tr><td><font size='2'><a href = 'playlist.php?id=$id&song=$songid'>$title</a></font></td><td><font size='2'><i>$artist</i></font></td></tr>";			
  		}
+
+      	if($globalflag == 0)
+      	{
+			echo "<td><br><a href='playlist_songs.php?id=$id'><font size ='2'><b>Add/Remove Songs</b></font></a></td>";
+		}
 
  	   	echo "</table></td><td>";
 
@@ -91,6 +109,7 @@
 		$result = $db->query($sql);
 
 		echo "<b><table>";
+		
 
 		while($row = $result->fetch_assoc()) 
  		{

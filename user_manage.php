@@ -4,7 +4,8 @@
    	$result = mysqli_query($db, "SELECT userid,adminflag FROM users WHERE username = '$login_session' ");
     $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
 	$userid = $row['userid'];
-    $adminflag = $row['adminflag'];
+	$adminflag = $row['adminflag'];
+
    
    $error = "\t";
 
@@ -87,7 +88,6 @@
             </b>
             </div>
 			
-			
 			<?php
 			if($adminflag == '1')
 			{
@@ -98,6 +98,7 @@
 				echo "<br></div>";
 			}
 			?>
+
 			
             <div style = "margin:30px">
                

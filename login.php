@@ -59,7 +59,7 @@
 	
       <div align = "center">
  
-		<img alt="myMusic" src="header.jpg" width="600px" height="300px">
+		<img alt="myMusic" src="header.jpg" width="600px" height="280px">
 		<br>
 
         <div style = "width:600px; border: solid 1px #333333; " align = "left">

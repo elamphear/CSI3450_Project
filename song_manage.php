@@ -4,45 +4,55 @@
    	$result = mysqli_query($db, "SELECT userid,adminflag FROM users WHERE username = '$login_session' ");
     $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
 	$userid = $row['userid'];
-    $adminflag = $row['adminflag'];
+	$adminflag = $row['adminflag'];
+
    
    $error = "\t";
 
    if($_SERVER["REQUEST_METHOD"] == "POST") 
    {
-      
-      $myplaylistname = mysqli_real_escape_string($db,$_POST['playlistname']);
-      $myglobalflag = mysqli_real_escape_string($db,$_POST['globalflag']);
-      
-      if($myplaylistname != "")
-            		
-      if($myglobalflag == 1)
-      {
-	    $sql = "INSERT INTO `playlists`(`playlistid`, `name`, `globalflag`, `userid`) VALUES ('','$myplaylistname',1,NULL)";
-      	$result = mysqli_query($db,$sql);
 
-        $error = "Playlist Added";         
-      }
+      	$myaddsong = mysqli_real_escape_string($db,$_POST['addsong']);
+		$myremovesong = mysqli_real_escape_string($db,$_POST['removesong']);
+
+      
+      	if($myaddsong == "" && $myremovesong == "")
+		{
+		         $error = "ERROR: No selection made";		
+		}
+
+		elseif($myaddsong != "" && $myremovesong != "")
+		{
+		         $error = "ERROR: Please only select one option at a time.";		
+		}
+		            		
+      	elseif($myaddsong != "")
+      	{
+      
+		    $sql = "INSERT INTO `songs`(`songid`,`title`,`album`,`artist`,`genre`,`songfilepath`,`albumartfilepath`,`premiumflag`) VALUES ('','$mytitle','myalbum','myartist','mygenre','mysongfilepath','myalbumartpath','mypremiumflag')";
+	      	$result = mysqli_query($db,$sql);
+      
+	        $error = "Song Added";
+        }
+        
+        elseif($myremovesong != "")
+        {
+		    $sql = "DELETE FROM `songs` where songid = '$mysongid'";
+	      	$result = mysqli_query($db,$sql);
+	      
+	        $error = "Song Removed";  
+      	}      		
+   }
  
-	  elseif($myglobalflag == 0)
-      {      
-	    $sql = "INSERT INTO `playlists`(`playlistid`, `name`, `globalflag`, `userid`) VALUES ('','$myplaylistname',0,$userid)";
-      	$result = mysqli_query($db,$sql);
-
-        $error = "Playlist Added";
-      }
-      
-      else 
-      {
-         $error = "ERROR: All fields required";
-      }
-      
-      else 
+/*      else 
       {
          $error = "ERROR: All fields required";
       }
 
    }
+
+*/
+
 ?>
 <html>
    
@@ -87,7 +97,6 @@
             </b>
             </div>
 			
-			
 			<?php
 			if($adminflag == '1')
 			{
@@ -98,6 +107,7 @@
 				echo "<br></div>";
 			}
 			?>
+
 			
             <div style = "margin:30px">
                
