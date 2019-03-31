@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 30, 2019 at 09:05 PM
+-- Generation Time: Apr 01, 2019 at 12:09 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.3
 
@@ -43,8 +43,9 @@ INSERT INTO `playlists` (`playlistid`, `name`, `globalflag`, `userid`) VALUES
 (1, 'All Songs', 1, NULL),
 (2, 'Alternative Rock', 1, NULL),
 (3, 'My Favorites', 0, 1),
-(4, 'Classic Rock', 1, NULL),
-(24, 'Admin Favorites', 0, 2);
+(4, 'New Wave', 1, NULL),
+(32, 'Favorites', 0, 2),
+(33, 'Alt Rock', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -63,11 +64,30 @@ CREATE TABLE `playlistsongs` (
 
 INSERT INTO `playlistsongs` (`playlistid`, `songid`) VALUES
 (1, 1),
-(2, 1),
 (3, 1),
 (3, 3),
 (3, 2),
-(24, 2);
+(3, 10),
+(1, 2),
+(1, 3),
+(1, 10),
+(4, 2),
+(4, 10),
+(2, 3),
+(1, 13),
+(2, 13),
+(1, 14),
+(2, 14),
+(1, 15),
+(2, 15),
+(1, 16),
+(4, 16),
+(32, 16),
+(3, 13),
+(33, 13),
+(33, 14),
+(33, 15),
+(2, 1);
 
 -- --------------------------------------------------------
 
@@ -91,9 +111,14 @@ CREATE TABLE `songs` (
 --
 
 INSERT INTO `songs` (`songid`, `title`, `album`, `artist`, `genre`, `songfilepath`, `albumartfilepath`, `premiumflag`) VALUES
-(1, 'Without Me (Clean)', 'Without Me (Single)', 'Halsey', 'Alternative Rock', 'MusicFiles/halsey_without_me.mp3', 'AlbumArt/halsey_without_me.png', 0),
-(2, 'Under Pressure', 'Nothing Has Changed', 'David Bowie', 'Rock', 'MusicFiles/bow_under_pressure.mp3', 'AlbumArt/bowie_nothing.png', 1),
-(3, 'High Hopes', 'Pray for the Wicked', 'Panic at the Disco', 'Alternative Rock', 'MusicFiles\\patd_high_hopes.mp3', 'AlbumArt\\patd_high_hopes.png', 1);
+(1, 'Without Me', 'Without Me (Single)', 'Halsey', 'Alternative Rock', 'MusicFiles/halsey_without_me.mp3', 'AlbumArt/halsey_without_me.png', 0),
+(2, 'Under Pressure', 'Nothing Has Changed', 'David Bowie', 'New Wave', 'MusicFiles/bow_under_pressure.mp3', 'AlbumArt/bowie_nothing.png', 1),
+(3, 'High Hopes', 'Pray for the Wicked', 'Panic at the Disco', 'Alternative Rock', 'MusicFiles\\patd_high_hopes.mp3', 'AlbumArt\\patd_high_hopes.png', 1),
+(10, 'Ordinary World', 'The Wedding Album', 'Duran Duran', 'New Wave', 'MusicFiles\\duran_duran_ordinary_world.mp3', 'AlbumArt\\duran_duran_wedding.png', 0),
+(13, 'Interstate Love Song', 'Purple', 'Stone Temple Pilots', 'Alternative Rock', 'MusicFiles/stp_interstate_love_song.mp3', 'AlbumArt/stp_purple.png', 0),
+(14, 'Believer', 'Evolve', 'Imagine Dragons', 'Alternative Rock', 'MusicFiles/imagine_dragons_believer.mp3', 'AlbumArt/imagine_dragons_evovle.PNG', 0),
+(15, 'All My Life', 'One By One', 'Foo Fighters', 'Alternative Rock', 'MusicFiles/foo_fighters_all_my_life.mp3', 'AlbumArt/foo_fighters_one_by_one.PNG', 1),
+(16, 'Bohemian Rhapsody', 'Classic Queen', 'Queen', 'New Wave', 'MusicFiles/queen_bohemian_rhapsody.mp3', 'AlbumArt/queen_classic.PNG', 0);
 
 -- --------------------------------------------------------
 
@@ -107,6 +132,7 @@ CREATE TABLE `users` (
   `password` varchar(20) NOT NULL,
   `userfname` varchar(20) NOT NULL,
   `userlname` varchar(20) NOT NULL,
+  `email` varchar(50) NOT NULL,
   `subscriptionstatus` int(11) NOT NULL,
   `adminflag` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -115,9 +141,9 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`userid`, `username`, `password`, `userfname`, `userlname`, `subscriptionstatus`, `adminflag`) VALUES
-(1, 'esl', 'esl', 'Eric', 'Lamphear', 1, 0),
-(2, 'admin', 'admin', 'Admin', 'User', 1, 1);
+INSERT INTO `users` (`userid`, `username`, `password`, `userfname`, `userlname`, `email`, `subscriptionstatus`, `adminflag`) VALUES
+(1, 'esl', 'esl', 'Eric', 'Lamphear', 'lamphear@gmail.com', 1, 0),
+(2, 'admin', 'admin', 'Admin', 'User', 'lamphear@gmail.com', 1, 1);
 
 --
 -- Indexes for dumped tables
@@ -157,19 +183,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `playlists`
 --
 ALTER TABLE `playlists`
-  MODIFY `playlistid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `playlistid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `songs`
 --
 ALTER TABLE `songs`
-  MODIFY `songid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `songid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables
