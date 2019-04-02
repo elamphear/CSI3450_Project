@@ -86,6 +86,14 @@
 		                	<label>Password  :</label><input type = "password" name = "password" class = "box" /><br/><br />
 		                	
 		                	<input type = "submit" value = " Login "/><br />
+		                	
+		                	<br><br>
+		                	
+		                	<a href="mailto:lamphear@gmail.com?subject=myMusic - Reset Password&body=Please provide your username to reset :: "><b>Reset Password</b></a>
+		                	
+		                	<br><br>
+		                	
+		                	<a href="mailto:lamphear@gmail.com?subject=myMusic: Sign Up New User&body=Please provide a desired username and password :: "><b>Sign Up</b></a>
 	               		
 	               		</div>
                
